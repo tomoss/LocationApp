@@ -1,0 +1,8 @@
+
+\.idea/workspace\.xml
+
+target/classes/application\.properties
+
+target/classes/org/scd/config/SecurityConfig\.class
+
+target/classes/org/scd/controller/RegistrationController\.class
