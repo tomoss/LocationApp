@@ -28,8 +28,12 @@ public class UserServiceImpl implements UserService {
             //TODO: add custom exception handler here
             throw new Exception("Email not provided");
         }
-
         //TODO: check if password is provided
+        if(Objects.isNull(password)) {
+            //TODO: add custom exception handler here
+            throw new Exception("Password not provided");
+        }
+
         final User user = userRepository.findByEmail(email);
         //TODO: validate if user exists
         //TODO: validate if password match

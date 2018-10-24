@@ -31,4 +31,9 @@ public class UserController {
     public ResponseEntity<User> loginUser(@RequestBody Map<String, String> userData) throws Exception {
         return ResponseEntity.ok(userService.login(userData));
     }
+
+    /*@PostMapping(path = "/register")
+    public ResponseEntity<User> registerUser(@RequestBody Map<String, String> userData) throws Exception {
+        return ResponseEntity.ok(userService.register(userData));
+   } */
 }
