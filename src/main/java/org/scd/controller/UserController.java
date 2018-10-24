@@ -6,11 +6,10 @@ import org.scd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController()
 @RequestMapping("/users")
@@ -26,5 +25,10 @@ public class UserController {
     @GetMapping(path = "/me")
     public ResponseEntity<User> getCurrentUser() {
         return ResponseEntity.ok(((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser());
+    }
+
+    @PostMapping(path="/login")
+    public ResponseEntity<User> loginUser(@RequestBody Map<String, String> userData) throws Exception {
+        return ResponseEntity.ok(userService.login(userData));
     }
 }

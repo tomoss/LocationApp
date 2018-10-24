@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/me").authenticated().anyRequest().hasAnyRole("ADMIN", "BASIC_USER")
                 .and()
                 .formLogin().disable()
-                .httpBasic().disable(); ////////////////// fara disable cere login
+                .httpBasic();
     }
 
     @Override
