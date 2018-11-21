@@ -34,5 +34,37 @@ public class UserServiceImpl implements UserService {
         //TODO: validate if user exists
         //TODO: validate if password match
          return user;
+
+
+
+         //
+         // throw new BusinessException(400,"Email not found")
+         //
+        /*
+        @Override
+        public User doLogin(LoginCredentialsDTO loginCredetialsDTO) throws BusinessException {
+            if(Objects.isNull(loginCredentialsDTO)){
+                throw new BusinessException(400,"Body cannot be null")
+            }
+
+            if (Objects.isNull(loginCredentialsDTO.getEmail()){
+
+            }
+            if(Objects.isNull(loginCredentialsDTO.getPassword(){
+            }
+            final User existingUser = userRepository.findbByEmail(loginCredetialsDTO.getEmail());
+            
+            if(Objects.isNull(existingUser)) {
+                //bad credentials
+            }
+
+            if(!passwordEncoder.matches(loginCredentialsDTO.getPassword(), existingUser.getPassword())) {
+               //bad credentials
+            }
+
+            return existingUser
+
+        }
+         */
     }
 }
