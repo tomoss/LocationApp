@@ -1,6 +1,8 @@
 package org.scd.controller;
 
+import org.scd.config.exception.BusinessException;
 import org.scd.model.User;
+import org.scd.model.dto.UserLoginDTO;
 import org.scd.model.security.CustomUserDetails;
 import org.scd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +29,12 @@ public class UserController {
         return ResponseEntity.ok(((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser());
     }
 
-    @PostMapping(path="/login")
-    public ResponseEntity<User> loginUser(@RequestBody Map<String, String> userData) throws Exception {
-        return ResponseEntity.ok(userService.login(userData));
+    @PostMapping(path = "/login")
+    public ResponseEntity<User> loginUser(@RequestBody final UserLoginDTO userLoginDTO) throws BusinessException{
+        return ResponseEntity.ok(userService.login(userLoginDTO));
     }
+
+
 
 
 }

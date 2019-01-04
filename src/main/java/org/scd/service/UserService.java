@@ -1,6 +1,9 @@
 package org.scd.service;
 
+import org.scd.config.exception.BusinessException;
 import org.scd.model.User;
+import org.scd.model.dto.UserLoginDTO;
+import org.scd.model.dto.UserRegisterDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -14,10 +17,12 @@ public interface UserService {
 
     /**
      * Login into application
-     * @param userData - user information
+     * @param userLoginDTO - user information
      * @return
      */
-    User login(Map<String, String> userData) throws Exception;
+    User login(final UserLoginDTO userLoginDTO) throws BusinessException;
+
+    User register(final UserRegisterDTO userRegisterDTO) throws BusinessException;
 
 
 }

@@ -13,4 +13,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * @return
      */
     User findByEmail(final String email);
+
+    User save(User user);
 }

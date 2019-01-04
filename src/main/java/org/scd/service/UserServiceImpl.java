@@ -1,18 +1,27 @@
 package org.scd.service;
 
+import org.scd.config.exception.BusinessException;
 import org.scd.model.User;
+import org.scd.model.dto.UserLoginDTO;
+import org.scd.model.dto.UserRegisterDTO;
 import org.scd.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
+
 
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getUsers() {
@@ -20,25 +29,39 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(Map<String, String> userData) throws Exception {
-        final String email = userData.get("email");
-        final String password = userData.get("password");
+    public User login(UserLoginDTO userLoginDTO) throws BusinessException{
 
-        if (Objects.isNull(email)) {
-            //TODO: add custom exception handler here
-            throw new Exception("Email not provided");
-        }
-        //TODO: check if password is provided
-        if(Objects.isNull(password)) {
-            //TODO: add custom exception handler here
-            throw new Exception("Password not provided");
+        if(Objects.isNull(userLoginDTO)){
+            throw new BusinessException(401,"Body null !");
         }
 
-        final User user = userRepository.findByEmail(email);
-        //TODO: validate if user exists
-        //TODO: validate if password match
-         return user;
+        if(Objects.isNull(userLoginDTO.getEmail())){
+            throw new BusinessException(400,"Email cannot be null !");
+        }
 
+        if(Objects.isNull(userLoginDTO.getPassword())){
+            throw new BusinessException(400,"Password cannot be null !");
+        }
 
+        final User user = userRepository.findByEmail(userLoginDTO.getEmail());
+
+        if(Objects.isNull(user)){
+            throw new BusinessException(401,"Bad credentials !");
+        }
+
+        if(!passwordEncoder.matches(userLoginDTO.getPassword(),user.getPassword())){
+            throw new BusinessException(401,"Bad credentials !");
+        }
+
+        return  user;
     }
+
+    @Override
+    public User register(UserRegisterDTO userRegisterDTO) throws BusinessException{
+
+        return  null;
+    }
+
+
+
 }
