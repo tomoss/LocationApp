@@ -32,8 +32,5 @@ public class UserController {
         return ResponseEntity.ok(userService.login(userData));
     }
 
-    /*@PostMapping(path = "/register")
-    public ResponseEntity<User> registerUser(@RequestBody Map<String, String> userData) throws Exception {
-        return ResponseEntity.ok(userService.register(userData));
-   } */
+
 }
