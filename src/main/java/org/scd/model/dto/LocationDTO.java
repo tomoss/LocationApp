@@ -2,30 +2,30 @@ package org.scd.model.dto;
 
 public class LocationDTO {
 
-    private double latitude;
-    private double longitude;
+    private String latitude;
+    private String longitude;
 
     public LocationDTO() {
     }
 
-    public LocationDTO(double latitude, double longitude) {
+    public LocationDTO(String latitude, String longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 }
