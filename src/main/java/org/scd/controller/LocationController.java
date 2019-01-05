@@ -35,5 +35,12 @@ public class LocationController {
         return ResponseEntity.ok(locationService.updateLocationById(userPrincipal,id,locationDTO));
     }
 
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity deleteLocation(@PathVariable final Long id) throws BusinessException{
+        final CustomUserDetails userPrincipal = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        locationService.deleteLocationById(userPrincipal,id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
 

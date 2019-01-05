@@ -107,7 +107,27 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public void deleteLocationById(CustomUserDetails customUserDetails, Long id) throws BusinessException {
+    public void deleteLocationById(CustomUserDetails userPrincipal, Long id) throws BusinessException {
+
+        if(Objects.isNull(id)){
+            throw new BusinessException(400,"ID cannot be null !");
+        }
+
+        Location location = locationRepository.findById(id).orElse(null);
+
+        if(Objects.isNull(location)){
+            throw new BusinessException(400,"Location not found !");
+        }
+
+        if(!location.getUser().getId().equals(userPrincipal.getUser().getId())) {
+            throw new BusinessException(400,"Location not found !");
+        }
+
+        locationRepository.deleteById(id);
+
+        return;
+
+
 
     }
 
