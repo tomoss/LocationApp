@@ -30,12 +30,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/users/**").permitAll()
-                .antMatchers( "/users/all").authenticated().anyRequest().hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/users", "/users/login","/users/register").permitAll()
                 .antMatchers("/users/me").authenticated().anyRequest().hasAnyRole("ADMIN", "BASIC_USER")
-
-
-
+                .antMatchers( "/users/all").authenticated().anyRequest().hasAnyRole("ADMIN")
+                .anyRequest()
+                .authenticated()
                 .and()
                 .formLogin().disable()
                 .httpBasic();
