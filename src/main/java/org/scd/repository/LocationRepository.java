@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface LocationRepository extends CrudRepository<Location,Long>{
 
     Location save(Location location);
-    
+
    Optional <Location> findById(final Long id);
 
    void deleteById(final Long id);
