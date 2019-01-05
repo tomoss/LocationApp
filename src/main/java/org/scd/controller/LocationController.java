@@ -8,10 +8,7 @@ import org.scd.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController()
 @RequestMapping("/locations")
@@ -25,5 +22,12 @@ public class LocationController {
         final CustomUserDetails userPrincipal = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return ResponseEntity.ok(locationService.addLocation(userPrincipal, locationDTO));
     }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Location> getLocation(@PathVariable final Long id) throws BusinessException{
+        final CustomUserDetails userPrincipal = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResponseEntity.ok(locationService.findLocationById(userPrincipal,id));
+    }
+
 }
 
