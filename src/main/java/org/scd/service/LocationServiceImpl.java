@@ -7,6 +7,7 @@ import org.scd.model.security.CustomUserDetails;
 import org.scd.repository.LocationRepository;
 import org.scd.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
@@ -127,12 +128,17 @@ public class LocationServiceImpl implements LocationService {
 
         return;
 
-
-
     }
 
     @Override
-    public List<Location> getFilteredLocations(Long userId, Date startDate, Date endDate) throws BusinessException {
-        return null;
+    public List<Location> getLocationsByUser(CustomUserDetails userPrincipal) throws BusinessException{
+
+        return locationRepository.findLocationsByUser(userPrincipal.getUser());
     }
+
+    /*@Override
+    public List<Location> getFilteredLocations(CustomUserDetails userPrincipal, Date startDate, Date endDate) throws BusinessException {
+
+        return  locationRepository.findLocationsByDateAfterAndDateBeforeAndUser(startDate,endDate,userPrincipal.getUser());
+    }*/
 }

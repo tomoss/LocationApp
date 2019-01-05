@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController()
 @RequestMapping("/locations")
 public class LocationController {
@@ -41,6 +43,15 @@ public class LocationController {
         locationService.deleteLocationById(userPrincipal,id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping(path = "/all")
+    public ResponseEntity<List<Location>> getLocations() throws BusinessException{
+        final CustomUserDetails userPrincipal = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResponseEntity.ok(locationService.getLocationsByUser(userPrincipal));
+
+    }
+
+
 
 }
 
