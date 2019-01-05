@@ -23,7 +23,7 @@ public interface LocationRepository extends CrudRepository<Location,Long>{
 
    List<Location> findLocationsByUser(User user);
 
-   List<Location> findLocationsByDateAfterAndDateBeforeAndUser(Date startDate, Date endDate, User user);
+   List<Location> findLocationsByDateAfterAndDateBeforeAndUserId(Date startDate, Date endDate, Long id);
 
 
 }

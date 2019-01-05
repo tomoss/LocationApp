@@ -2,6 +2,7 @@ package org.scd.controller;
 
 import org.scd.config.exception.BusinessException;
 import org.scd.model.Location;
+import org.scd.model.dto.DateDTO;
 import org.scd.model.dto.LocationDTO;
 import org.scd.model.security.CustomUserDetails;
 import org.scd.service.LocationService;
@@ -44,10 +45,16 @@ public class LocationController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(path = "/all")
+    @GetMapping(path = "/me")
     public ResponseEntity<List<Location>> getLocations() throws BusinessException{
         final CustomUserDetails userPrincipal = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return ResponseEntity.ok(locationService.getLocationsByUser(userPrincipal));
+
+    }
+
+    @GetMapping(path = "/all/{id}")
+    public ResponseEntity<List<Location>> getFilteredLocations(@PathVariable final Long id, @RequestBody DateDTO dateDTO) throws BusinessException{
+        return ResponseEntity.ok(locationService.getFilteredLocations(id,dateDTO));
 
     }
 

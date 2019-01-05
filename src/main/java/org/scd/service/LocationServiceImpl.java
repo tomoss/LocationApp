@@ -2,10 +2,14 @@ package org.scd.service;
 
 import org.scd.config.exception.BusinessException;
 import org.scd.model.Location;
+import org.scd.model.User;
+import org.scd.model.dto.DateDTO;
 import org.scd.model.dto.LocationDTO;
+import org.scd.model.dto.UserRegisterDTO;
 import org.scd.model.security.CustomUserDetails;
 import org.scd.repository.LocationRepository;
 import org.scd.repository.RoleRepository;
+import org.scd.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.parameters.P;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Service
@@ -21,6 +26,9 @@ public class LocationServiceImpl implements LocationService {
 
     @Autowired
     private LocationRepository locationRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -136,9 +144,17 @@ public class LocationServiceImpl implements LocationService {
         return locationRepository.findLocationsByUser(userPrincipal.getUser());
     }
 
-    /*@Override
-    public List<Location> getFilteredLocations(CustomUserDetails userPrincipal, Date startDate, Date endDate) throws BusinessException {
+    @Override
+    public List<Location> getFilteredLocations(Long id, DateDTO dateDTO) throws BusinessException {
 
-        return  locationRepository.findLocationsByDateAfterAndDateBeforeAndUser(startDate,endDate,userPrincipal.getUser());
-    }*/
+        if(Objects.isNull(dateDTO.getStartDate())){
+            throw new BusinessException(400,"Start DATE cannot be null ! ");
+        }
+
+        if(Objects.isNull(dateDTO.getEndDate())){
+            throw new BusinessException(400,"End DATE cannot be null !");
+        }
+
+        return  locationRepository.findLocationsByDateAfterAndDateBeforeAndUserId(dateDTO.getStartDate(),dateDTO.getEndDate(),id);
+    }
 }

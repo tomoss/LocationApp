@@ -2,6 +2,7 @@ package org.scd.service;
 
 import org.scd.config.exception.BusinessException;
 import org.scd.model.Location;
+import org.scd.model.dto.DateDTO;
 import org.scd.model.dto.LocationDTO;
 import org.scd.model.security.CustomUserDetails;
 
@@ -21,6 +22,6 @@ public interface LocationService {
 
     List<Location> getLocationsByUser(final CustomUserDetails customUserDetails) throws BusinessException;
 
-    //List<Location> getFilteredLocations(final CustomUserDetails customUserDetails, final Date startDate, final Date endDate) throws BusinessException;
+    List<Location> getFilteredLocations(final Long id, final DateDTO dateDTO) throws BusinessException;
 
 }
