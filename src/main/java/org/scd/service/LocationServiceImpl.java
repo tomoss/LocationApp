@@ -69,8 +69,41 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Location updateLocationById(CustomUserDetails customUserDetails, Long id) throws BusinessException {
-        return null;
+    public Location updateLocationById(CustomUserDetails userPrincipal, Long id, LocationDTO locationDTO) throws BusinessException {
+        if(Objects.isNull(id)){
+            throw new BusinessException(400,"ID cannot be null !");
+        }
+
+        Location location = locationRepository.findById(id).orElse(null);
+
+        if(Objects.isNull(location)){
+            throw new BusinessException(400,"Location not found !");
+        }
+
+        if(!location.getUser().getId().equals(userPrincipal.getUser().getId())) {
+            throw new BusinessException(400,"Location not found !");
+        }
+
+        if(Objects.isNull(locationDTO)){
+            throw new BusinessException(401,"Body null !");
+        }
+
+        if(Objects.isNull(locationDTO.getLatitude())){
+            throw new BusinessException(400,"Latitude cannot be null ! ");
+        }
+
+        if(Objects.isNull(locationDTO.getLongitude())){
+            throw new BusinessException(400,"Longitude cannot be null !");
+        }
+
+        location.setLatitude(Double.parseDouble(locationDTO.getLatitude()));
+        location.setLongitude(Double.parseDouble(locationDTO.getLongitude()));
+        location.setDate(new Date());
+
+        locationRepository.save(location);
+
+        return location;
+
     }
 
     @Override

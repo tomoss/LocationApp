@@ -14,7 +14,7 @@ public interface LocationService {
 
     Location findLocationById(final CustomUserDetails customUserDetails, final Long id) throws BusinessException;
 
-    Location updateLocationById(final CustomUserDetails customUserDetails, final Long id) throws BusinessException;
+    Location updateLocationById(final CustomUserDetails customUserDetails, final Long id, final LocationDTO locationDTO) throws BusinessException;
 
     void deleteLocationById(final CustomUserDetails customUserDetails, final Long id) throws BusinessException;
 

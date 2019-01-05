@@ -29,5 +29,11 @@ public class LocationController {
         return ResponseEntity.ok(locationService.findLocationById(userPrincipal,id));
     }
 
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Location> updateLocation(@PathVariable final Long id,@RequestBody LocationDTO locationDTO) throws BusinessException{
+        final CustomUserDetails userPrincipal = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResponseEntity.ok(locationService.updateLocationById(userPrincipal,id,locationDTO));
+    }
+
 }
 
