@@ -39,6 +39,7 @@ public class User implements Serializable {
     }
 
 
+    @JsonIgnore
     public Long getId() {
         return id;
     }
@@ -47,6 +48,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
+    @JsonIgnore
     public String getFirstName() {
         return firstName;
     }
@@ -55,6 +57,7 @@ public class User implements Serializable {
         this.firstName = firstName;
     }
 
+    @JsonIgnore
     public String getLastName() {
         return lastName;
     }
@@ -62,6 +65,7 @@ public class User implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
 
     public String getEmail() {
         return email;
@@ -80,11 +84,13 @@ public class User implements Serializable {
         return password;
     }
 
+    @JsonIgnore
     @JsonProperty("password")
     public String getHiddenPassword() {
         return "****";
     }
 
+    @JsonIgnore
     public Set<Role> getRoles() {
         return roles;
     }

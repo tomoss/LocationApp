@@ -102,6 +102,8 @@ public class UserServiceImpl implements UserService {
         basicUser.setLastName(userRegisterDTO.getLastName());
         basicUser.setRoles(rolesSet);
 
+        userRepository.save(basicUser);
+
         return basicUser;
     }
 
