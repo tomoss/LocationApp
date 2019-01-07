@@ -38,8 +38,6 @@ public class User implements Serializable {
     public User() {
     }
 
-
-    @JsonIgnore
     public Long getId() {
         return id;
     }
