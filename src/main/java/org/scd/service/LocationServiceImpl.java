@@ -27,11 +27,6 @@ public class LocationServiceImpl implements LocationService {
     @Autowired
     private LocationRepository locationRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
 
     @Override
     public Location addLocation(CustomUserDetails userPrincipal, LocationDTO locationDTO) throws BusinessException {

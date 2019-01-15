@@ -14,7 +14,6 @@ import java.util.Map;
 @ControllerAdvice
 public class ExceptionConfig {
 
-    @CrossOrigin(origins = "http://localhost:63342")
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity parseBusinessException(BusinessException ex){
         Map<String,Object> responseMessage = new LinkedHashMap<>();
