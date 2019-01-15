@@ -27,6 +27,8 @@ public class LocationServiceImpl implements LocationService {
     @Autowired
     private LocationRepository locationRepository;
 
+    @Autowired UserRepository userRepository;
+
 
     @Override
     public Location addLocation(CustomUserDetails userPrincipal, LocationDTO locationDTO) throws BusinessException {
@@ -148,6 +150,12 @@ public class LocationServiceImpl implements LocationService {
 
         if(Objects.isNull(dateDTO.getEndDate())){
             throw new BusinessException(400,"End DATE cannot be null !");
+        }
+
+        User user = userRepository.findById(id).orElse(null);
+
+        if(Objects.isNull(user)){
+            throw new BusinessException(400,"User not found !");
         }
 
         return  locationRepository.findLocationsByDateAfterAndDateBeforeAndUserId(dateDTO.getStartDate(),dateDTO.getEndDate(),id);

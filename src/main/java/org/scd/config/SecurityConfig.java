@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users/register", "/users/login").permitAll()
-                .antMatchers("/users/me", "/locations/**").hasAnyRole("ADMIN", "BASIC_USER")
+                .antMatchers("/users/me", "/locations/{id}").hasAnyRole("ADMIN", "BASIC_USER")
                 .antMatchers("/locations/all", "/users/all", "/locations/all/**").hasAnyRole("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -77,7 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:63342"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:51071"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST","OPTIONS","PUT","DELETE"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
