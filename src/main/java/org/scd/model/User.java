@@ -12,6 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "USERS")
 public class User implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

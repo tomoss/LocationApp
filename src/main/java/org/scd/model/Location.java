@@ -1,5 +1,7 @@
 package org.scd.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -61,9 +63,11 @@ public class Location implements Serializable{
         this.date = date;
     }
 
-    public User getUser() {
-        return user;
-    }
+    @JsonIgnore
+    public User getUser() { return user; }
+
+    public String getUserEmail() { return user.getEmail(); };
+
 
     public void setUser(User user) {
         this.user = user;
