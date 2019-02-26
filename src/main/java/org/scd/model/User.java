@@ -12,6 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "USERS")
 public class User implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,14 +33,10 @@ public class User implements Serializable {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>(0);
 
-    public User() {
-    }
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Location> locations = new HashSet<>();
 
-    public User(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
+    public User() {
     }
 
     public Long getId() {
@@ -50,6 +47,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
+    @JsonIgnore
     public String getFirstName() {
         return firstName;
     }
@@ -58,6 +56,7 @@ public class User implements Serializable {
         this.firstName = firstName;
     }
 
+    @JsonIgnore
     public String getLastName() {
         return lastName;
     }
@@ -65,6 +64,7 @@ public class User implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
 
     public String getEmail() {
         return email;
@@ -83,11 +83,13 @@ public class User implements Serializable {
         return password;
     }
 
+    @JsonIgnore
     @JsonProperty("password")
     public String getHiddenPassword() {
         return "****";
     }
 
+    @JsonIgnore
     public Set<Role> getRoles() {
         return roles;
     }
@@ -95,4 +97,14 @@ public class User implements Serializable {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    /*
+    public Set<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(Set<Location> locations) {
+        this.locations = locations;
+    }
+    */
 }
